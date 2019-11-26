@@ -1,11 +1,11 @@
 import React from 'react';
+import SplashScreen from './SplashScreen';
 import { ThemeProvider } from '../themes';
-import { Heading } from '../heading';
 
 function App() {
   return (
     <ThemeProvider>
-      <Heading variant="h1">Sequel Pro</Heading>
+      <SplashScreen />
     </ThemeProvider>
   );
 }

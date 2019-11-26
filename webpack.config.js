@@ -25,4 +25,5 @@ module.exports = {
     publicPath: 'http://localhost:3000/',
     filename: 'bundle.js',
   },
+  target: 'electron-renderer',
 };
