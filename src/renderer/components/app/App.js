@@ -1,11 +1,17 @@
 import React from 'react';
-import SplashScreen from './SplashScreen';
-import { ThemeProvider } from '../themes';
+import { ConnectionForm } from 'components/connectionForm';
+import { Sidebar } from 'components/sidebar';
+import { ThemeProvider } from 'design/themes';
+// import SplashScreen from './SplashScreen';
 
 function App() {
   return (
     <ThemeProvider>
-      <SplashScreen />
+      <Sidebar />
+
+      <div style={{ width: 'calc(100% - 240px)', marginLeft: '240px' }}>
+        <ConnectionForm />
+      </div>
     </ThemeProvider>
   );
 }
