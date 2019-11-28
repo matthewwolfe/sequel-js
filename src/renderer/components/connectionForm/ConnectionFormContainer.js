@@ -2,7 +2,15 @@ import React from 'react';
 import ConnectionForm from './ConnectionForm';
 
 function ConnectionFormContainer() {
-  return <ConnectionForm />;
+  const initialValues = {
+    name: '',
+    username: '',
+    password: '',
+    database: '',
+    port: '',
+  };
+
+  return <ConnectionForm initialValues={initialValues} />;
 }
 
 export default ConnectionFormContainer;

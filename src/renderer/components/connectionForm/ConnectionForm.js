@@ -1,5 +1,8 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import { Box } from 'design/box';
+import { Button } from 'design/button';
 import { Grid } from 'design/grid';
 import { GridItem } from 'design/gridItem';
 import { Form } from 'design/form';
@@ -7,7 +10,15 @@ import { Heading } from 'design/heading';
 import { Paper } from 'design/paper';
 import { TextField } from 'design/textField';
 
-function ConnectionForm() {
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(4, 4),
+  },
+}));
+
+function ConnectionForm({ initialValues }) {
+  const classes = useStyles();
+
   return (
     <Grid
       spacing={0}
@@ -17,16 +28,21 @@ function ConnectionForm() {
       style={{ height: '90vh' }}
     >
       <Grid justify="center">
-        <GridItem xs={12} sm={8} md={4}>
-          <Paper style={{ padding: '2em', width: '100%' }}>
-            <Heading align="center" variant="h6">
-              Connection
-            </Heading>
+        <GridItem xs={12} sm={8} md={6} lg={4}>
+          <Form
+            initialValues={initialValues}
+            onSubmit={values => {
+              console.log(values);
+            }}
+          >
+            {({ handleSubmit }) => (
+              <form onSubmit={handleSubmit}>
+                <Paper className={classes.root}>
+                  <Heading align="center" variant="h6">
+                    Connection
+                  </Heading>
 
-            <Box mt={3}>
-              <Form>
-                {({ handleSubmit }) => (
-                  <form onSubmit={handleSubmit}>
+                  <Box>
                     <TextField label="Name" name="name" />
                     <TextField label="Username" name="username" />
                     <TextField
@@ -36,15 +52,27 @@ function ConnectionForm() {
                     />
                     <TextField label="Database" name="database" />
                     <TextField label="Port" name="port" />
-                  </form>
-                )}
-              </Form>
-            </Box>
-          </Paper>
+                  </Box>
+                </Paper>
+
+                <Grid justify="flex-end">
+                  <Box mt={2}>
+                    <Button color="primary" type="submit">
+                      Connect
+                    </Button>
+                  </Box>
+                </Grid>
+              </form>
+            )}
+          </Form>
         </GridItem>
       </Grid>
     </Grid>
   );
 }
+
+ConnectionForm.propTypes = {
+  initialValues: PropTypes.object.isRequired,
+};
 
 export default ConnectionForm;

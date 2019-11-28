@@ -7,10 +7,7 @@ function Form({ children, ...props }) {
 }
 
 Form.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.func.isRequired,
 };
 
 export default Form;

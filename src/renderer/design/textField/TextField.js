@@ -5,10 +5,15 @@ import PropTypes from 'prop-types';
 
 function TextField({ label, type = 'text', ...props }) {
   const [field] = useField(props);
-  console.log(field);
 
   return (
-    <MaterialTextField fullWidth label={label} margin="normal" type={type} />
+    <MaterialTextField
+      fullWidth
+      label={label}
+      margin="normal"
+      type={type}
+      {...field}
+    />
   );
 }
 
