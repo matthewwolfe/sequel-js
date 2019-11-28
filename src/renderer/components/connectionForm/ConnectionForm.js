@@ -56,10 +56,17 @@ function ConnectionForm({ initialValues }) {
                 </Paper>
 
                 <Grid justify="flex-end">
-                  <Box mt={2}>
-                    <Button color="primary" type="submit">
-                      Connect
-                    </Button>
+                  <Box display="flex" mt={2}>
+                    <Box mr={1}>
+                      <Button color="secondary" type="submit">
+                        Save connection
+                      </Button>
+                    </Box>
+                    <Box>
+                      <Button color="primary" type="submit">
+                        Connect
+                      </Button>
+                    </Box>
                   </Box>
                 </Grid>
               </form>

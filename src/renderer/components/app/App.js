@@ -9,7 +9,12 @@ function App() {
     <ThemeProvider>
       <Sidebar />
 
-      <div style={{ width: 'calc(100% - 240px)', marginLeft: '240px' }}>
+      <div
+        style={{
+          width: 'calc(100% - 240px)',
+          marginLeft: '240px',
+        }}
+      >
         <ConnectionForm />
       </div>
     </ThemeProvider>
