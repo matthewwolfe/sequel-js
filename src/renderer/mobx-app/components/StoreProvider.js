@@ -17,7 +17,6 @@ StoreProvider.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-  stores: PropTypes.object.isRequired,
 };
 
 export default StoreProvider;

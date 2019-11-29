@@ -2,18 +2,23 @@ import { action, observable } from 'mobx';
 import { Connection } from 'mobx-app/stores/mysql';
 
 class Connections {
-  @observable connections = [];
+  @observable savedConnections = [];
 
   activeConnection = null;
 
   @action.bound
   saveConnection(data) {
-    this.connections.push(new Connection(data));
+    this.savedConnections.push(new Connection(data));
   }
 
   @action.bound
   setActiveConnection(connection) {
     this.activeConnection = connection;
+  }
+
+  async testConnection(data) {
+    const connection = new Connection(data);
+    return await connection.test();
   }
 }
 

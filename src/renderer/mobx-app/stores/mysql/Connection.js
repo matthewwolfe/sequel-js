@@ -2,29 +2,46 @@ import { observable } from 'mobx';
 import mysql from 'mysql';
 
 class Connection {
-  @observable host = '';
-  @observable user = '';
+  @observable name = '';
+  @observable host = '127.0.0.1';
+  @observable username = '';
   @observable password = '';
   @observable database = '';
+  @observable port = 3306;
 
   connection = null;
 
-  constructor({ host, user, password, database }) {
+  constructor({ name, host, username, password, database, port }) {
+    this.name = name;
     this.host = host;
-    this.user = user;
+    this.username = username;
     this.password = password;
     this.database = database;
+    this.port = port;
 
     this.connection = mysql.createConnection({
       host: host,
-      user: user,
+      user: username,
       password: password,
       database: database,
+      port: port,
     });
   }
 
   connect() {
     this.connection.connect();
+  }
+
+  ping() {
+    return new Promise((resolve, reject) => {
+      this.connection.ping(error => {
+        if (error) {
+          reject(false);
+        }
+
+        resolve(true);
+      });
+    });
   }
 
   query(sql, identifiers) {
@@ -37,6 +54,17 @@ class Connection {
         resolve(results);
       });
     });
+  }
+
+  async test() {
+    this.connect();
+
+    try {
+      const isConnected = await this.ping();
+      return isConnected;
+    } catch (error) {
+      return false;
+    }
   }
 }
 

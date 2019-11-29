@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ConnectionForm({ initialValues }) {
+function ConnectionForm({ initialValues, saveConnection, testConnection }) {
   const classes = useStyles();
 
   return (
@@ -31,11 +31,9 @@ function ConnectionForm({ initialValues }) {
         <GridItem xs={12} sm={8} md={6} lg={4}>
           <Form
             initialValues={initialValues}
-            onSubmit={values => {
-              console.log(values);
-            }}
+            onSubmit={values => saveConnection(values)}
           >
-            {({ handleSubmit }) => (
+            {({ handleSubmit, values }) => (
               <form onSubmit={handleSubmit}>
                 <Paper className={classes.root}>
                   <Heading align="center" variant="h6">
@@ -44,6 +42,7 @@ function ConnectionForm({ initialValues }) {
 
                   <Box>
                     <TextField label="Name" name="name" />
+                    <TextField label="Host" name="host" />
                     <TextField label="Username" name="username" />
                     <TextField
                       label="Password"
@@ -58,14 +57,20 @@ function ConnectionForm({ initialValues }) {
                 <Grid justify="flex-end">
                   <Box display="flex" mt={2}>
                     <Box mr={1}>
+                      <Button
+                        color="default"
+                        onClick={() => testConnection(values)}
+                      >
+                        Test
+                      </Button>
+                    </Box>
+                    <Box mr={1}>
                       <Button color="secondary" type="submit">
                         Save connection
                       </Button>
                     </Box>
                     <Box>
-                      <Button color="primary" type="submit">
-                        Connect
-                      </Button>
+                      <Button color="primary">Connect</Button>
                     </Box>
                   </Box>
                 </Grid>
@@ -80,6 +85,8 @@ function ConnectionForm({ initialValues }) {
 
 ConnectionForm.propTypes = {
   initialValues: PropTypes.object.isRequired,
+  saveConnection: PropTypes.func.isRequired,
+  testConnection: PropTypes.func.isRequired,
 };
 
 export default ConnectionForm;
