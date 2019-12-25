@@ -2,10 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { SavedConnection } from 'components/savedConnection';
+import { SavedConnections } from 'components/savedConnections';
 import { Box } from 'design/box';
 import { Drawer } from 'design/drawer';
-import { Heading } from 'design/heading';
+import { Link } from 'design/link';
+import { Text } from 'design/text';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Sidebar({ savedConnections }) {
+function Sidebar({ activeConnection }) {
   const classes = useStyles();
 
   return (
@@ -29,21 +30,25 @@ function Sidebar({ savedConnections }) {
       className={classes.drawer}
       open
     >
-      <Box p={2}>
-        <Heading variant="subtitle2" align="center">
-          Saved connections
-        </Heading>
+      <SavedConnections />
 
-        {savedConnections.map((connection, index) => (
-          <SavedConnection connection={connection} key={index} />
-        ))}
+      <Box p={2} textAlign="center">
+        {!activeConnection && (
+          <Text>
+            <Link to="/">Connect</Link>
+          </Text>
+        )}
+
+        <Text>
+          <Link to="/settings">Settings</Link>
+        </Text>
       </Box>
     </Drawer>
   );
 }
 
 Sidebar.propTypes = {
-  savedConnections: PropTypes.any.isRequired,
+  activeConnection: PropTypes.any,
 };
 
 export default observer(Sidebar);

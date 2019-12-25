@@ -1,5 +1,6 @@
 import { observable } from 'mobx';
 import mysql from 'mysql';
+import { logger } from 'utils/logger';
 
 class Connection {
   @observable name = '';
@@ -28,8 +29,17 @@ class Connection {
     });
   }
 
-  connect() {
-    this.connection.connect();
+  async connect() {
+    return new Promise((resolve, reject) => {
+      this.connection.connect(function(error) {
+        if (error) {
+          logger.error(`Error connecting to mysql: ${error.stack}`);
+          reject();
+        }
+
+        resolve();
+      });
+    });
   }
 
   ping() {
@@ -65,6 +75,17 @@ class Connection {
     } catch (error) {
       return false;
     }
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      host: this.host,
+      username: this.username,
+      password: this.password,
+      database: this.database,
+      port: this.port,
+    };
   }
 }
 

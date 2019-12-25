@@ -1,1 +1,1 @@
-export { default as SavedConnection } from './SavedConnection';
+export { default as SavedConnection } from './SavedConnectionContainer';

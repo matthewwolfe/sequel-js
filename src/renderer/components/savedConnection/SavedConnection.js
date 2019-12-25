@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from 'design/box';
+import { ListItem } from 'design/listItem';
 import { Text } from 'design/text';
 
-function SavedConnection({ connection }) {
+function SavedConnection({ connection, onClick }) {
   const { name } = connection;
 
   return (
-    <Box mb={2}>
+    <ListItem button icon="Storage" onClick={onClick}>
       <Text>{name}</Text>
-    </Box>
+    </ListItem>
   );
 }
 
 SavedConnection.propTypes = {
   connection: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default SavedConnection;

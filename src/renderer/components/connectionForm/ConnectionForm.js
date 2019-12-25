@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Box } from 'design/box';
 import { Button } from 'design/button';
@@ -16,7 +17,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ConnectionForm({ initialValues, saveConnection, testConnection }) {
+function ConnectionForm({
+  initialValues,
+  saveConnection,
+  setActiveConnection,
+  testConnection,
+}) {
   const classes = useStyles();
 
   return (
@@ -70,7 +76,12 @@ function ConnectionForm({ initialValues, saveConnection, testConnection }) {
                       </Button>
                     </Box>
                     <Box>
-                      <Button color="primary">Connect</Button>
+                      <Button
+                        color="primary"
+                        onClick={() => setActiveConnection(values)}
+                      >
+                        Connect
+                      </Button>
                     </Box>
                   </Box>
                 </Grid>
@@ -86,7 +97,8 @@ function ConnectionForm({ initialValues, saveConnection, testConnection }) {
 ConnectionForm.propTypes = {
   initialValues: PropTypes.object.isRequired,
   saveConnection: PropTypes.func.isRequired,
+  setActiveConnection: PropTypes.func.isRequired,
   testConnection: PropTypes.func.isRequired,
 };
 
-export default ConnectionForm;
+export default observer(ConnectionForm);
