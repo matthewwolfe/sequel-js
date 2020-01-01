@@ -1,6 +1,8 @@
 import { observable } from 'mobx';
 import mysql from 'mysql';
 import { logger } from 'utils/logger';
+import { sortByProperty } from 'utils/sort';
+import Database from './Database';
 
 class Connection {
   @observable name = '';
@@ -31,13 +33,30 @@ class Connection {
 
   async connect() {
     return new Promise((resolve, reject) => {
-      this.connection.connect(function(error) {
+      this.connection.connect(error => {
         if (error) {
           logger.error(`Error connecting to mysql: ${error.stack}`);
           reject();
         }
 
         resolve();
+      });
+    });
+  }
+
+  databases() {
+    return new Promise((resolve, reject) => {
+      this.connection.query('SHOW DATABASES', (error, results) => {
+        if (error) {
+          reject(error);
+        }
+
+        const databases = sortByProperty(
+          results.map(({ Database: name }) => new Database({ name })),
+          'name',
+        );
+
+        resolve(databases);
       });
     });
   }

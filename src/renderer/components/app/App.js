@@ -1,11 +1,10 @@
 import React from 'react';
 import { SnackbarProvider } from 'notistack';
-import { HashRouter, Switch, Route } from 'react-router-dom';
-import { ConnectionForm } from 'components/connectionForm';
-import { Settings } from 'components/settings';
+import { HashRouter } from 'react-router-dom';
 import { Sidebar } from 'components/sidebar';
 import { ThemeProvider } from 'design/themes';
 import { StoreProvider } from 'mobx-app';
+import AppMainContent from './AppMainContent';
 
 function App() {
   return (
@@ -15,18 +14,7 @@ function App() {
           <HashRouter>
             <>
               <Sidebar />
-
-              <div
-                style={{
-                  width: 'calc(100% - 240px)',
-                  marginLeft: '240px',
-                }}
-              >
-                <Switch>
-                  <Route path="/" exact component={ConnectionForm} />
-                  <Route path="/settings" exact component={Settings} />
-                </Switch>
-              </div>
+              <AppMainContent />
             </>
           </HashRouter>
         </SnackbarProvider>

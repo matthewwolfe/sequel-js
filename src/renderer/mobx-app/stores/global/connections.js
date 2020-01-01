@@ -16,7 +16,7 @@ class Connections {
   async initialize() {
     const storageConnections = await storage.get(SAVED_CONNECTIONS);
 
-    if (storageConnections) {
+    if (Array.isArray(storageConnections)) {
       this.savedConnections = storageConnections.map(
         data => new Connection(data),
       );
